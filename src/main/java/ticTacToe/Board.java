@@ -3,7 +3,7 @@ package ticTacToe;
 public class Board {
 
 	private char[][] tokens;
-
+	
 	private static char[] COLOR = { 'x', 'o' };
 
 	public Board() {
@@ -38,67 +38,60 @@ public class Board {
 	}
 
 	public boolean existTicTacToe() {
-		return this.existTicTacToe(Board.COLOR[0])
-				|| this.existTicTacToe(Board.COLOR[1]);
+		return this.existTicTacToe(Board.COLOR[0]) || this.existTicTacToe('o');
 	}
 
-	public boolean existTicTacToe(char token) {
-		if (tokens[1][1] == token) {
-			if (tokens[0][0] == token) {
-				return tokens[2][2] == token;
+	private boolean existTicTacToe(char color) {
+		if (tokens[1][1] == color) {
+			if (tokens[0][0] == color) {
+				return tokens[2][2] == color;
 			}
-			if (tokens[0][2] == token) {
-				return tokens[2][0] == token;
+			if (tokens[0][2] == color) {
+				return tokens[2][0] == color;
 			}
-			if (tokens[0][1] == token) {
-				return tokens[2][1] == token;
+			if (tokens[0][1] == color) {
+				return tokens[2][1] == color;
 			}
-			if (tokens[1][0] == token) {
-				return tokens[1][2] == token;
-			}
-			return false;
-		}
-		if (tokens[0][0] == token) {
-			if (tokens[0][1] == token) {
-				return tokens[0][2] == token;
-			}
-			if (tokens[1][0] == token) {
-				return tokens[2][0] == token;
+			if (tokens[1][0] == color) {
+				return tokens[1][2] == color;
 			}
 			return false;
 		}
-		if (tokens[2][2] == token) {
-			if (tokens[1][2] == token) {
-				return tokens[0][2] == token;
+		if (tokens[0][0] == color) {
+			if (tokens[0][1] == color) {
+				return tokens[0][2] == color;
 			}
-			if (tokens[2][1] == token) {
-				return tokens[2][0] == token;
+			if (tokens[1][0] == color) {
+				return tokens[1][2] == color;
+			}
+			return false;
+		}
+		if (tokens[2][2] == color) {
+			if (tokens[1][2] == color) {
+				return tokens[0][2] == color;
+			}
+			if (tokens[2][1] == color) {
+				return tokens[2][0] == color;
 			}
 			return false;
 		}
 		return false;
 	}
 
-	public boolean empty(int row, int column) {
-		return tokens[row][column] == '_';
+	public boolean empty(Coordinate coordinate) {
+		return this.full(coordinate, '_');
 	}
 
-	public void put(int row, int column, char token) {
-		tokens[row][column] = token;
+	public void put(Coordinate coordinate, char color) {
+		tokens[coordinate.getRow()][coordinate.getColumn()] = color;
 	}
 
-	public void remove(int row, int column) {
-		tokens[row][column] = '_';
+	public void remove(Coordinate coordinate) {
+		this.put(coordinate, '_');
 	}
 
-	public boolean full(int row, int column, char token) {
-		return tokens[row][column] == token;
-	}
-
-	public void win(int turn) {
-		new IO().writeln("Victoria!!!! " + Board.COLOR[turn] + "! "
-				+ Board.COLOR[turn] + "! " + Board.COLOR[turn]
-				+ "! Victoria!!!!");
+	public boolean full(Coordinate coordinate, char color) {
+		return tokens[coordinate.getRow()][coordinate.getColumn()] == color;
 	}
 
 }
