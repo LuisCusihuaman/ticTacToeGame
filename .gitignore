@@ -1,0 +1,7 @@
+# Gradle
+.gradle
+build/
+.gitignore
+.env.local
+.env.*.local
+.idea
