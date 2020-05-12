@@ -1,97 +1,96 @@
 package ticTacToe;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class Board {
 
-	private char[][] tokens;
-	
-	private static char[] COLOR = { 'x', 'o' };
+	private Map<Integer, Set<Coordinate>> coordinates;
+
+	public static final int DIMENSION = 3;
 
 	public Board() {
-		tokens = new char[3][3];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				tokens[i][j] = '_';
-			}
+		coordinates = new HashMap<>();
+		for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
+			coordinates.put(i, new HashSet<>());
 		}
 	}
 
 	public void write() {
 		IO io = new IO();
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				io.write(tokens[i][j] + " ");
+		for (int i = 0; i < Board.DIMENSION; i++) {
+			for (int j = 0; j < Board.DIMENSION; j++) {
+				io.write(this.getColor(new Coordinate(i, j)) + " ");
 			}
 			io.writeln();
 		}
 	}
 
-	public boolean complete() {
-		int contTokens = 0;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (tokens[i][j] != '_') {
-					contTokens++;
-				}
+	private Color getColor(Coordinate coordinate) {
+		assert coordinate != null;
+		for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
+			if (coordinates.get(i).contains(coordinate)) {
+				return Color.values()[i];
 			}
 		}
-		return contTokens == 6;
+		return Color.NONE;
+	}
+
+	public boolean complete() {
+		int contTokens = 0;
+		for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
+			contTokens += coordinates.get(i).size();
+		}
+		return contTokens == Board.DIMENSION * TicTacToe.NUM_PLAYERS;
 	}
 
 	public boolean existTicTacToe() {
-		return this.existTicTacToe(Board.COLOR[0]) || this.existTicTacToe('o');
+		return this.existTicTacToe(Color.XS) || this.existTicTacToe(Color.OS);
 	}
 
-	private boolean existTicTacToe(char color) {
-		if (tokens[1][1] == color) {
-			if (tokens[0][0] == color) {
-				return tokens[2][2] == color;
-			}
-			if (tokens[0][2] == color) {
-				return tokens[2][0] == color;
-			}
-			if (tokens[0][1] == color) {
-				return tokens[2][1] == color;
-			}
-			if (tokens[1][0] == color) {
-				return tokens[1][2] == color;
-			}
+	public boolean existTicTacToe(Color color) {
+		assert color != Color.NONE;
+		Set<Coordinate> coordinateSet = coordinates.get(color.ordinal());
+		if (coordinateSet.size() != Board.DIMENSION) {
 			return false;
 		}
-		if (tokens[0][0] == color) {
-			if (tokens[0][1] == color) {
-				return tokens[0][2] == color;
-			}
-			if (tokens[1][0] == color) {
-				return tokens[1][2] == color;
-			}
+		Coordinate[] coordinateArray = coordinateSet.toArray(new Coordinate[0]);
+		Direction direction = coordinateArray[0].direction(coordinateArray[1]);
+		if (direction == Direction.NON_EXISTENT) {
 			return false;
 		}
-		if (tokens[2][2] == color) {
-			if (tokens[1][2] == color) {
-				return tokens[0][2] == color;
+		for (int i = 1; i < Board.DIMENSION - 1; i++) {
+			if (coordinateArray[i].direction(coordinateArray[i + 1]) != direction) {
+				return false;
 			}
-			if (tokens[2][1] == color) {
-				return tokens[2][0] == color;
-			}
-			return false;
 		}
-		return false;
+		return true;
 	}
 
 	public boolean empty(Coordinate coordinate) {
-		return this.full(coordinate, '_');
+		assert coordinate != null;
+		return !this.full(coordinate, Color.XS) && !this.full(coordinate, Color.OS);
 	}
 
-	public void put(Coordinate coordinate, char color) {
-		tokens[coordinate.getRow()][coordinate.getColumn()] = color;
+	public void put(Coordinate coordinate, Color color) {
+		assert coordinate != null;
+		assert color != Color.NONE;
+		assert color != null;
+		coordinates.get(color.ordinal()).add(coordinate);
 	}
 
-	public void remove(Coordinate coordinate) {
-		this.put(coordinate, '_');
+	public void remove(Coordinate coordinate, Color color) {
+		assert coordinate != null;
+		assert color != Color.NONE;
+		coordinates.get(color.ordinal()).remove(coordinate);
 	}
 
-	public boolean full(Coordinate coordinate, char color) {
-		return tokens[coordinate.getRow()][coordinate.getColumn()] == color;
+	public boolean full(Coordinate coordinate, Color color) {
+		assert coordinate != null;
+		assert color != Color.NONE;
+		return coordinates.get(color.ordinal()).contains(coordinate);
 	}
 
 }
