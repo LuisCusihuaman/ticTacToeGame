@@ -38,7 +38,8 @@ public class Board {
 	}
 
 	public boolean existTicTacToe() {
-		return this.existTicTacToe('x') || this.existTicTacToe('o');
+		return this.existTicTacToe(Board.COLOR[0])
+				|| this.existTicTacToe(Board.COLOR[1]);
 	}
 
 	public boolean existTicTacToe(char token) {
@@ -92,14 +93,6 @@ public class Board {
 
 	public boolean full(int row, int column, char token) {
 		return tokens[row][column] == token;
-	}
-
-	public void clear() {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				tokens[i][j] = '_';
-			}
-		}
 	}
 
 	public void win(int turn) {
