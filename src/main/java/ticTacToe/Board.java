@@ -28,9 +28,9 @@ public class Board {
 
 	private Color getColor(Coordinate coordinate) {
 		assert coordinate != null;
-		for (int i = 0; i < coordinates.keySet().size(); i++) {
-			if (coordinates.get(i).contains(coordinate)) {
-				return Color.values()[i];
+		for(Integer player : coordinates.keySet()){
+			if (coordinates.get(player).contains(coordinate)) {
+				return Color.values()[player];
 			}
 		}
 		return Color.NONE;
@@ -38,8 +38,8 @@ public class Board {
 
 	public boolean complete() {
 		int contTokens = 0;
-		for (int i = 0; i < coordinates.keySet().size(); i++) {
-			contTokens += coordinates.get(i).size();
+		for(Integer player : coordinates.keySet()){
+			contTokens += coordinates.get(player).size();
 		}
 		return contTokens == Coordinate.DIMENSION * coordinates.keySet().size();
 	}

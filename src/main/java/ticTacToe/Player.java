@@ -3,13 +3,18 @@ package ticTacToe;
 public class Player {
 
 	private Color color;
+	
+	private Board board;
 
-	public Player(int player, int numPlayers) {
+	public Player(int player, int numPlayers, Board board) {
 		assert new ClosedInterval(0,numPlayers-1).includes(player);
+		assert board != null;
 		color = Color.values()[player];
+		this.board = board;
 	}
 
-	private void put(String title, Board board, Coordinate forbidden) {
+	private void put(String title, Coordinate forbidden) {
+		assert board != null;
 		assert title != null;
 		IO io = new IO();
 		Coordinate target = new Coordinate();
@@ -30,13 +35,13 @@ public class Player {
 		board.put(target, color);
 	}
 
-	public void put(Board board) {
+	public void put() {
 		IO io = new IO();
 		io.writeln("Pone el jugador " + color);
-		this.put("En", board, null);
+		this.put("En", null);
 	}
 
-	public void move(Board board) {
+	public void move() {
 		IO io = new IO();
 		io.writeln("Mueve el jugador " + color);
 		Coordinate origin = new Coordinate();
@@ -49,7 +54,7 @@ public class Player {
 			}
 		} while (!ok);
 		board.remove(origin, color);
-		this.put("A", board, origin);
+		this.put("A", origin);
 	}
 
 	public void win() {

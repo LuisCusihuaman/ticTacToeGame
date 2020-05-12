@@ -14,23 +14,23 @@ public class TicTacToe {
         board = new Board(TicTacToe.NUM_PLAYERS);
         players = new Player[TicTacToe.NUM_PLAYERS];
         for(int i=0; i<TicTacToe.NUM_PLAYERS; i++){
-            players[i] = new Player(i, TicTacToe.NUM_PLAYERS);
+            players[i] = new Player(i, TicTacToe.NUM_PLAYERS, board);
         }
-        turn = new Turn(TicTacToe.NUM_PLAYERS);
+        turn = new Turn(players);
     }
     
     public void play(){
        do {
            board.write();
            if (!board.complete()){
-               players[turn.take()].put(board);
+               turn.take().put();
            } else {
-        	   players[turn.take()].move(board);
+               turn.take().move();
            }
            turn.change();
        } while(!board.existTicTacToe());
        board.write();
-       players[turn.notTake()].win();
+       turn.notTake().win();
     }
     
     public static void main(String[] args){
