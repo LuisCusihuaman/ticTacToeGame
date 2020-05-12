@@ -6,7 +6,9 @@ public class Coordinate {
 	
 	private int column;
 	
-	private static final ClosedInterval LIMITS = new ClosedInterval(0, Board.DIMENSION-1);
+	public static final int DIMENSION = 3;
+	
+	private static final ClosedInterval LIMITS = new ClosedInterval(0, Coordinate.DIMENSION-1);
 
 	public Coordinate(){	
 	}
@@ -22,8 +24,8 @@ public class Coordinate {
 		assert title != null;
 		IO io = new IO();
 		io.writeln(title + " qué casilla?");
-		row = new LimitedIntDialog("Fila?", Board.DIMENSION).read()-1;
-		column = new LimitedIntDialog("Columna?", Board.DIMENSION).read()-1;
+		row = new LimitedIntDialog("Fila?", Coordinate.DIMENSION).read()-1;
+		column = new LimitedIntDialog("Columna?", Coordinate.DIMENSION).read()-1;
 	}
 	
 	public Direction direction(Coordinate coordinate){
@@ -56,7 +58,7 @@ public class Coordinate {
 	}
 	
 	private boolean inInverse(){
-		return row + column == Board.DIMENSION-1;
+		return row + column == Coordinate.DIMENSION-1;
 	}
 
 	@Override

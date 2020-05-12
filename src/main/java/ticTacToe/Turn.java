@@ -2,10 +2,13 @@ package ticTacToe;
 
 public class Turn {
 
-	int value = 0;
+	private int value = 0;
 	
-	public Turn() {
+	private int limit;
+	
+	public Turn(int limit) {
 		value = 0;
+		this.limit = limit;
 	}
 	
     public int take() {
@@ -13,7 +16,7 @@ public class Turn {
     }
     
     public int notTake() {
-    	return (value +1)% TicTacToe.NUM_PLAYERS;
+    	return (value +1)% limit;
     }
     
     public void change() {

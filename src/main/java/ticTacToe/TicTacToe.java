@@ -8,15 +8,15 @@ public class TicTacToe {
     
     private Turn turn;
     
-    public static final int NUM_PLAYERS = 2;
+    private static final int NUM_PLAYERS = 2;
     
     public TicTacToe() {
-        board = new Board();
-        turn = new Turn();
+        board = new Board(TicTacToe.NUM_PLAYERS);
         players = new Player[TicTacToe.NUM_PLAYERS];
         for(int i=0; i<TicTacToe.NUM_PLAYERS; i++){
-            players[i] = new Player(i);
+            players[i] = new Player(i, TicTacToe.NUM_PLAYERS);
         }
+        turn = new Turn(TicTacToe.NUM_PLAYERS);
     }
     
     public void play(){
@@ -25,7 +25,7 @@ public class TicTacToe {
            if (!board.complete()){
                players[turn.take()].put(board);
            } else {
-               players[turn.take()].move(board);
+        	   players[turn.take()].move(board);
            }
            turn.change();
        } while(!board.existTicTacToe());
