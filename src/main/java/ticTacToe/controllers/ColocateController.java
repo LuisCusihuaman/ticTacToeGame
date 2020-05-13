@@ -1,5 +1,8 @@
-package ticTacToe;
+package ticTacToe.controllers;
 
+import ticTacToe.models.Game;
+import ticTacToe.models.State;
+import ticTacToe.models.Coordinate;
 import ticTacToe.utils.IO;
 
 public abstract class ColocateController extends Controller {

@@ -1,4 +1,6 @@
-package ticTacToe;
+package ticTacToe.controllers;
+
+import ticTacToe.models.Game;
 
 public class PutController extends ColocateController {
 

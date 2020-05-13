@@ -1,4 +1,4 @@
-package ticTacToe;
+package ticTacToe.models;
 
 public class Game {
 

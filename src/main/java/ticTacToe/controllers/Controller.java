@@ -1,4 +1,9 @@
-package ticTacToe;
+package ticTacToe.controllers;
+
+import ticTacToe.models.Board;
+import ticTacToe.models.Game;
+import ticTacToe.models.State;
+import ticTacToe.models.Turn;
 
 public abstract class Controller {
 

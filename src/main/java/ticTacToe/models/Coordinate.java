@@ -1,4 +1,4 @@
-package ticTacToe;
+package ticTacToe.models;
 
 import ticTacToe.utils.ClosedInterval;
 import ticTacToe.utils.Direction;

@@ -1,4 +1,7 @@
-package ticTacToe;
+package ticTacToe.controllers;
+
+import ticTacToe.models.Game;
+import ticTacToe.models.State;
 
 public class StartController extends Controller {
 
