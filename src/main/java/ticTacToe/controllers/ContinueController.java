@@ -4,7 +4,7 @@ import ticTacToe.models.Game;
 import ticTacToe.models.State;
 import ticTacToe.utils.IO;
 
-public class ContinueController extends Controller {
+public class ContinueController extends OperationController {
 
 	public ContinueController(Game game) {
 		super(game);

@@ -3,24 +3,24 @@ package ticTacToe.controllers;
 import ticTacToe.models.Game;
 import ticTacToe.models.Coordinate;
 
-public class ManualMoveController extends MoveController {
+public class UserCoordinateController extends CoordinateController {
 
-	public ManualMoveController(Game game) {
+	protected UserCoordinateController(Game game) {
 		super(game);
 	}
 
 	@Override
-	protected Coordinate selectOrigin() {
+	public Coordinate getOrigin() {
 		Coordinate origin = new Coordinate();
 		origin.read("De");
 		return origin;
 	}
 
 	@Override
-	protected Coordinate selectTarget(String targetTitle) {
+	public Coordinate getTarget(String targetTitle) {
 		Coordinate target = new Coordinate();
 		target.read(targetTitle);
 		return target;
 	}
-
+	
 }

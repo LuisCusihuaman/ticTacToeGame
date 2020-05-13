@@ -1,18 +1,22 @@
 package ticTacToe.controllers;
 
 import ticTacToe.models.Game;
-import ticTacToe.models.Coordinate;
 import ticTacToe.utils.IO;
+import ticTacToe.models.Coordinate;
 
-public class RandomMoveController extends MoveController {
+public class RandomCoordinateController extends CoordinateController {
 
-	public RandomMoveController(Game game) {
+	private Coordinate origin;
+
+	private Coordinate target;
+
+	protected RandomCoordinateController(Game game) {
 		super(game);
 	}
 
 	@Override
-	protected Coordinate selectOrigin() {
-		Coordinate origin = new Coordinate();
+	public Coordinate getOrigin() {
+		origin = new Coordinate();
 		boolean ok;
 		do {
 			origin.random();
@@ -26,15 +30,15 @@ public class RandomMoveController extends MoveController {
 	}
 
 	@Override
-	protected Coordinate selectTarget(String targetTitle) {
-		Coordinate target = new Coordinate();
+	public Coordinate getTarget(String targetTitle) {
+		target = new Coordinate();
 		boolean ok;
 		do {
 			target.random();
 			ok = this.getGame().getBoard().empty(target);
 			if (ok) {
-				if (this.getOrigin() != null) {
-					ok = !this.getOrigin().equals(target);
+				if (origin != null) {
+					ok = !origin.equals(target);
 				}
 			}
 		} while (!ok);

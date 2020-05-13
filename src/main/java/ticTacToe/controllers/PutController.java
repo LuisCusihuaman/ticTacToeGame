@@ -2,10 +2,10 @@ package ticTacToe.controllers;
 
 import ticTacToe.models.Game;
 
-public abstract class PutController extends ColocateController {
+public class PutController extends ColocateController {
 
-	public PutController(Game game) {
-		super(game, "Pone");
+	public PutController(Game game, CoordinateController coordinateController) {
+		super(game, "Pone", coordinateController);
 	}
 
 	@Override
