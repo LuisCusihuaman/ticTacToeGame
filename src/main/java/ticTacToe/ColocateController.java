@@ -2,38 +2,36 @@ package ticTacToe;
 
 import ticTacToe.utils.IO;
 
-public abstract class ColocateController {
+public abstract class ColocateController extends Controller {
 
-	private Turn turn;
-
-	private Board board;
+	private String actionTitle;
 	
 	private Coordinate target;
 
-	protected ColocateController(Turn turn, Board board) {
-		assert turn != null;
-		assert board != null;
-		this.turn = turn;
-		this.board = board;
+	protected ColocateController(Game game, String actionTitle) {
+		super(game);
+		assert game != null;
+		assert actionTitle != null;
+		this.actionTitle = actionTitle;
 		target = new Coordinate();
 	}
 
-	public abstract void control();
-	
-	protected void control(String actionTitle, String targetTitle) {
+	public void control() {
+		assert this.getState() == State.IN_GAME;
 		IO io = new IO();
-		io.writeln(actionTitle + " el jugador " + turn.take());
-		this.colocate(targetTitle);
-		board.write();
-		if (board.existTicTacToe(turn.take())) {
-			io.writeln("Victoria!!!! " + turn.take() + "! " + turn.take()
-					+ "! " + turn.take() + "! Victoria!!!!");
+		io.writeln(actionTitle + " el jugador " + this.getTurn().take());
+		this.colocate();
+		this.getBoard().write();
+		if (this.getBoard().existTicTacToe(this.getTurn().take())) {
+			io.writeln("Victoria!!!! " + this.getTurn().take() + "! " + this.getTurn().take()
+					+ "! " + this.getTurn().take() + "! Victoria!!!!");
+			this.setState(State.FINAL);
 		} else {
-			turn.change();
+			this.getTurn().change();
 		}
 	}
 
-	protected abstract void colocate(String targetTitle);
+	protected abstract void colocate();
 
 	protected void put(String targetTitle) {
 		target = new Coordinate();
@@ -45,26 +43,17 @@ public abstract class ColocateController {
 				new IO().writeln(""+error);
 			}
 		} while (error != null);
-		board.put(target, turn.take());
+		this.getBoard().put(target, this.getTurn().take());
 	}
 
 	protected Error errorToPut() {
-		if (!board.empty(target)) {
+		if (!this.getBoard().empty(target)) {
 			return Error.NOT_EMPTY;
 		}
 		return null;
-	}
-
-	protected Turn getTurn() {
-		return turn;
-	}
-
-	protected Board getBoard() {
-		return board;
 	}
 	
 	protected Coordinate getTarget() {
 		return target;
 	}
-
 }

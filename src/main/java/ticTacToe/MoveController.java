@@ -6,20 +6,15 @@ public class MoveController extends ColocateController {
 
 	private Coordinate origin;
 
-	public MoveController(Turn turn, Board board) {
-		super(turn, board);
+	public MoveController(Game game) {
+		super(game, "Mueve");
 		origin = new Coordinate();
-	}
-	
-	@Override
-	public void control(){
-		this.control("Mueve", "A");
 	}
 
 	@Override
-	protected void colocate(String targetTitle) {
+	protected void colocate() {
 		this.remove();
-		this.put(targetTitle);
+		this.put("A");
 	}
 	
 	private void remove(){
@@ -52,5 +47,4 @@ public class MoveController extends ColocateController {
 		}
 		return null;
 	}
-
 }

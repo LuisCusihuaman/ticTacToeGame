@@ -2,32 +2,20 @@ package ticTacToe;
 
 public class TicTacToe {
 
-	private Turn turn;
-
-	private Board board;
-
-	private PutController putController;
-
-	private MoveController moveController;
-
-	private static final int NUM_PLAYERS = 2;
-
+	private Logic logic;
+	
 	public TicTacToe() {
-		turn = new Turn();
-		board = new Board(TicTacToe.NUM_PLAYERS);
-		putController = new PutController(turn, board);
-		moveController = new MoveController(turn, board);
+		logic = new Logic();
 	}
-
+	
 	public void play() {
-		board.write();
+		Controller controller;
 		do {
-			if (!board.complete()) {
-				putController.control();
-			} else {
-				moveController.control();
+			controller = logic.getController();
+			if (controller != null){
+				controller.control();
 			}
-		} while (!board.existTicTacToe());
+		} while (controller != null);
 	}
 
 	public static void main(String[] args) {

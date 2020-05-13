@@ -27,7 +27,7 @@ public class Coordinate {
 		this(ticTacToeCoordinate.coordinate.getRow(),
 				ticTacToeCoordinate.coordinate.getColumn());
 	}
-	
+
 	private void setRow(int row){
 		assert LIMITS.includes(row);
 		coordinate.setRow(row);
