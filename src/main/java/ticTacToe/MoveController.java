@@ -12,12 +12,13 @@ public class MoveController extends ColocateController {
 	
 	@Override
 	public void control() {
-		this.put("Mueve", "A");
+		this.control("Mueve", "A");
 	}
 
 	@Override
-	protected void prePut() {
+	protected void colocate(String targetTitle) {
 		this.remove();
+		this.put(targetTitle);
 	}
 	
 	private void remove(){
