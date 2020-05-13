@@ -1,5 +1,7 @@
 package ticTacToe.models;
 
+import java.util.Random;
+
 import ticTacToe.utils.ClosedInterval;
 import ticTacToe.utils.Direction;
 import ticTacToe.utils.IO;
@@ -46,6 +48,12 @@ public class Coordinate {
 		this.setColumn(new LimitedIntDialog("Columna?", Coordinate.DIMENSION).read()-1);
 	}
 	
+	public void random() {
+		Random random = new Random(System.currentTimeMillis());
+		coordinate.setRow(random.nextInt(Coordinate.DIMENSION));
+		coordinate.setColumn(random.nextInt(Coordinate.DIMENSION));
+	}
+	
 	public Direction direction(Coordinate ticTacToeCoordinate){
 		Direction direction = coordinate.direction(ticTacToeCoordinate.coordinate);
 		if (direction == Direction.NON_EXISTENT) {
@@ -87,5 +95,11 @@ public class Coordinate {
 	
 	public Coordinate clone() {
 		return new Coordinate(this);
-	}	
+	}
+	
+	@Override
+	public String toString(){
+		return "[" + (coordinate.getRow()+1) + ", " + (coordinate.getColumn()+1) + "]";
+	}
+	
 }

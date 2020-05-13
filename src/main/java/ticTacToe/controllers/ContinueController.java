@@ -6,19 +6,20 @@ import ticTacToe.utils.IO;
 
 public class ContinueController extends Controller {
 
-	protected ContinueController(Game game) {
+	public ContinueController(Game game) {
 		super(game);
 	}
 
 	@Override
 	public void control() {
 		assert this.getState() == State.FINAL;
+		IO io = new IO();
 		char answer;
 		do {
-			answer = new IO().readChar("Desea continuar? (s/n): ");
+			answer = io.readChar("Desea continuar? (s/n): ");
 		} while (answer != 's' && answer != 'S' && answer != 'n'
 				&& answer != 'N');
-		if (answer == 's' || answer == 'S') {
+		if (answer == 's') {
 			this.getBoard().clear();
 			this.setState(State.INITIAL);
 		} else {

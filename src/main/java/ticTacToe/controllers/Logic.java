@@ -3,34 +3,27 @@ package ticTacToe.controllers;
 import ticTacToe.models.Game;
 
 public class Logic {
-	
+
 	private Game game;
 
 	private StartController startController;
 
-	private PutController putController;
-
-	private MoveController moveController;
-	
 	private ContinueController continueController;
-	
+
 	public Logic() {
 		game = new Game();
 		startController = new StartController(game);
-		putController = new PutController(game);
-		moveController = new MoveController(game);
 		continueController = new ContinueController(game);
 	}
+
 	public Controller getController() {
 		switch (game.getState()){
 		case INITIAL:
 			return startController;
 		case IN_GAME:
-			if (!game.getBoard().complete()){
-				return putController;
-			} else {
-				return moveController;
-			}	
+			int player = game.getTurn().take().ordinal(); 
+			int colocate = !game.getBoard().complete()?0:1;
+			return startController.getColocateControllerArray()[player][colocate];
 		case FINAL:
 			return continueController;
 		case EXIT:

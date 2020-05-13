@@ -4,13 +4,12 @@ import ticTacToe.models.Game;
 import ticTacToe.models.Coordinate;
 import ticTacToe.utils.IO;
 
-public class MoveController extends ColocateController {
+public abstract class MoveController extends ColocateController {
 
 	private Coordinate origin;
 
 	public MoveController(Game game) {
 		super(game, "Mueve");
-		origin = new Coordinate();
 	}
 
 	@Override
@@ -22,25 +21,27 @@ public class MoveController extends ColocateController {
 	private void remove(){
 		Error error;
 		do {
-			origin.read("De");
-			error = this.errorToRemove(origin);
-			if (error != null) {
-				new IO().writeln("" + Error.NOT_PROPERTY);
+			origin = this.selectOrigin();
+			error = this.validateOrigin();
+			if (error != null){
+				new IO().writeln(""+error);
 			}
-		} while (error != null);
+		} while (error != null);	
 		this.getBoard().remove(origin, this.getTurn().take());
 	}
+	
+	protected abstract Coordinate selectOrigin();
 
-	private Error errorToRemove(Coordinate origin) {
+	private Error validateOrigin() {
 		if (!this.getBoard().full(origin, this.getTurn().take())) {
 			return Error.NOT_PROPERTY;
 		}
 		return null;
 	}
-
+	
 	@Override
-	protected Error errorToPut() {
-		Error error = super.errorToPut();
+	protected Error validateTarget() {
+		Error error = super.validateTarget();
 		if (error != null) {
 			return error;
 		}
@@ -48,5 +49,10 @@ public class MoveController extends ColocateController {
 				return Error.REPEATED_COORDINATE;
 		}
 		return null;
+	}	
+	
+	public Coordinate getOrigin() {
+		return origin;
 	}
+	
 }

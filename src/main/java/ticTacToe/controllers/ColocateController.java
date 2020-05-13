@@ -13,10 +13,8 @@ public abstract class ColocateController extends Controller {
 
 	protected ColocateController(Game game, String actionTitle) {
 		super(game);
-		assert game != null;
 		assert actionTitle != null;
 		this.actionTitle = actionTitle;
-		target = new Coordinate();
 	}
 
 	public void control() {
@@ -35,28 +33,30 @@ public abstract class ColocateController extends Controller {
 	}
 
 	protected abstract void colocate();
-
+	
 	protected void put(String targetTitle) {
-		target = new Coordinate();
 		Error error;
 		do {
-			target.read(targetTitle);
-			error = this.errorToPut();
+			target = this.selectTarget(targetTitle);
+			error = this.validateTarget();
 			if (error != null){
 				new IO().writeln(""+error);
 			}
-		} while (error != null);
+		} while (error != null);	
 		this.getBoard().put(target, this.getTurn().take());
 	}
+	
+	protected abstract Coordinate selectTarget(String targetTitle);
 
-	protected Error errorToPut() {
+	protected Error validateTarget(){
 		if (!this.getBoard().empty(target)) {
 			return Error.NOT_EMPTY;
 		}
 		return null;
 	}
 	
-	protected Coordinate getTarget() {
+	protected Coordinate getTarget(){
 		return target;
 	}
+
 }

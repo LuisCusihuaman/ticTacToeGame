@@ -32,4 +32,8 @@ public abstract class Controller {
 	protected Turn getTurn() {
 		return game.getTurn();
 	}
+	
+	protected Game getGame(){
+		return game;
+	}
 }
