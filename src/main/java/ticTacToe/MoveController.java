@@ -5,13 +5,14 @@ import ticTacToe.utils.IO;
 public class MoveController extends ColocateController {
 
 	private Coordinate origin;
-	
+
 	public MoveController(Turn turn, Board board) {
 		super(turn, board);
+		origin = new Coordinate();
 	}
 	
 	@Override
-	public void control() {
+	public void control(){
 		this.control("Mueve", "A");
 	}
 
@@ -22,33 +23,34 @@ public class MoveController extends ColocateController {
 	}
 	
 	private void remove(){
-		origin = new Coordinate();
-		boolean ok;
+		Error error;
 		do {
 			origin.read("De");
-			ok = this.errorToMove();
-		} while (!ok);
+			error = this.errorToRemove(origin);
+			if (error != null) {
+				new IO().writeln("" + Error.NOT_PROPERTY);
+			}
+		} while (error != null);
 		this.getBoard().remove(origin, this.getTurn().take());
 	}
-	
-	private boolean errorToMove(){
-		boolean ok = this.getBoard().full(origin, this.getTurn().take());
-		if (!ok) {
-			new IO().writeln("Esa casilla no está ocupada por ninguna de tus fichas");
+
+	private Error errorToRemove(Coordinate origin) {
+		if (!this.getBoard().full(origin, this.getTurn().take())) {
+			return Error.NOT_PROPERTY;
 		}
-		return ok;
+		return null;
 	}
 
 	@Override
-	protected boolean errorToPut() {
-		boolean ok = super.errorToPut();
-		if (ok){
-			ok = !origin.equals(this.getTarget());
-			if (!ok) {
-				new IO().writeln("No se puede poner de donde se quitó");
-			}
+	protected Error errorToPut() {
+		Error error = super.errorToPut();
+		if (error != null) {
+			return error;
 		}
-		return ok;
+		if (origin.equals(this.getTarget())) {
+				return Error.REPEATED_COORDINATE;
+		}
+		return null;
 	}
 
 }

@@ -17,7 +17,7 @@ public abstract class ColocateController {
 		this.board = board;
 		target = new Coordinate();
 	}
-	
+
 	public abstract void control();
 	
 	protected void control(String actionTitle, String targetTitle) {
@@ -32,25 +32,27 @@ public abstract class ColocateController {
 			turn.change();
 		}
 	}
-	
+
 	protected abstract void colocate(String targetTitle);
-	
+
 	protected void put(String targetTitle) {
 		target = new Coordinate();
-		boolean ok;
+		Error error;
 		do {
 			target.read(targetTitle);
-			ok = this.errorToPut();
-		} while (ok);
+			error = this.errorToPut();
+			if (error != null){
+				new IO().writeln(""+error);
+			}
+		} while (error != null);
 		board.put(target, turn.take());
 	}
-	
-	protected boolean errorToPut() {
-		boolean ok = this.getBoard().empty(this.getTarget());
-		if (!ok) {
-			new IO().writeln("Esa casilla no está vacía");
+
+	protected Error errorToPut() {
+		if (!board.empty(target)) {
+			return Error.NOT_EMPTY;
 		}
-		return ok;
+		return null;
 	}
 
 	protected Turn getTurn() {
@@ -59,10 +61,10 @@ public abstract class ColocateController {
 
 	protected Board getBoard() {
 		return board;
-	}	
-	
-	protected Coordinate getTarget(){
-		return target;
 	}
 	
+	protected Coordinate getTarget() {
+		return target;
+	}
+
 }

@@ -32,7 +32,7 @@ public class Board {
 
 	private Color getColor(Coordinate coordinate) {
 		assert coordinate != null;
-		for(Color color : coordinates.keySet()){
+		for (Color color : coordinates.keySet()) {
 			if (coordinates.get(color).contains(coordinate)) {
 				return color;
 			}
@@ -42,10 +42,11 @@ public class Board {
 
 	public boolean complete() {
 		int contTokens = 0;
-		for(Color color: coordinates.keySet()){
+		for (Color color : coordinates.keySet()) {
 			contTokens += coordinates.get(color).size();
 		}
-		return contTokens == Coordinate.DIMENSION * coordinates.keySet().size();
+		return contTokens == Coordinate.DIMENSION
+				* coordinates.keySet().size();
 	}
 
 	public boolean existTicTacToe() {
@@ -58,8 +59,9 @@ public class Board {
 		if (coordinateSet.size() != Coordinate.DIMENSION) {
 			return false;
 		}
-		Coordinate[] coordinateArray = coordinateSet.toArray(new Coordinate[0]);
-		Direction    direction       = coordinateArray[0].direction(coordinateArray[1]);
+		Coordinate[] coordinateArray = coordinateSet
+				.toArray(new Coordinate[0]);
+		Direction direction = coordinateArray[0].direction(coordinateArray[1]);
 		if (direction == Direction.NON_EXISTENT) {
 			return false;
 		}
@@ -73,15 +75,10 @@ public class Board {
 
 	public boolean empty(Coordinate coordinate) {
 		assert coordinate != null;
-		return !this.full(coordinate, Color.XS) && !this.full(coordinate, Color.OS);
+		return !this.full(coordinate, Color.XS)
+				&& !this.full(coordinate, Color.OS);
 	}
 
-	public boolean full(Coordinate coordinate, Color color) {
-		assert coordinate != null;
-		assert color != Color.NONE;
-		return coordinates.get(color).contains(coordinate);
-	}	
-	
 	public void put(Coordinate coordinate, Color color) {
 		assert coordinate != null;
 		assert color != Color.NONE;
@@ -93,6 +90,12 @@ public class Board {
 		assert coordinate != null;
 		assert color != Color.NONE;
 		coordinates.get(color).remove(coordinate);
+	}
+
+	public boolean full(Coordinate coordinate, Color color) {
+		assert coordinate != null;
+		assert color != Color.NONE;
+		return coordinates.get(color).contains(coordinate);
 	}
 
 }
