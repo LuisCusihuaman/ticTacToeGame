@@ -1,34 +1,19 @@
 package ticTacToe;
 
-public class Turn {
+class Turn {
 
 	private int value = 0;
 	
-	private Player[] players;
-	
-	public Turn(Player[] players) {
-		assert players != null;
-		for(Player player : players){
-			assert player != null;
-		}
+	public Turn() {
 		value = 0;
-		this.players = players;
 	}
 	
-    public Player take() {
-        return players[value];
-    }
-    
-    public Player notTake() {
-    	return players[this.other()];
-    }
-    
-    private int other() {
-    	return (value +1)% players.length;
+    public Color take() {
+        return Color.values()[value];
     }
     
     public void change() {
-    	value = this.other();
+    	value = (value +1)% (Color.values().length-1);
     }
 	
 }

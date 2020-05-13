@@ -1,4 +1,5 @@
-package ticTacToe;
+package ticTacToe.utils;
+
 
 public class LimitedIntDialog {
 

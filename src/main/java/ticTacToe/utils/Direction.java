@@ -1,4 +1,4 @@
-package ticTacToe;
+package ticTacToe.utils;
 
 public enum Direction {
 	VERTICAL,
