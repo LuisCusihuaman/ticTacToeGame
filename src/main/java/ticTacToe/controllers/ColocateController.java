@@ -1,8 +1,8 @@
 package ticTacToe.controllers;
 
+import ticTacToe.models.Coordinate;
 import ticTacToe.models.Game;
 import ticTacToe.models.State;
-import ticTacToe.models.Coordinate;
 import ticTacToe.utils.IO;
 
 public abstract class ColocateController extends OperationController {
@@ -42,7 +42,7 @@ public abstract class ColocateController extends OperationController {
 	protected void put(String targetTitle) {
 		Error error;
 		do {
-			target = coordinateController.getTarget(targetTitle);
+			target = this.getCoordinateController().getTarget(targetTitle);
 			error = this.validateTarget();
 			if (error != null){
 				new IO().writeln(""+error);

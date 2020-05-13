@@ -13,7 +13,7 @@ public class ContinueController extends OperationController {
 	@Override
 	public void control() {
 		assert this.getState() == State.FINAL;
-		IO io = new IO();
+		IO   io = new IO();
 		char answer;
 		do {
 			answer = io.readChar("Desea continuar? (s/n): ");

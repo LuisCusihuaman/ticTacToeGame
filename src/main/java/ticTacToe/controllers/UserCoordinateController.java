@@ -1,7 +1,7 @@
 package ticTacToe.controllers;
 
-import ticTacToe.models.Game;
 import ticTacToe.models.Coordinate;
+import ticTacToe.models.Game;
 
 public class UserCoordinateController extends CoordinateController {
 

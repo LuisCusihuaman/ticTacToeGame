@@ -32,4 +32,8 @@ public class Game {
 		return board;
 	}
 	
+	public int getNumPlayers() {
+		return NUM_PLAYERS;
+	}
+	
 }

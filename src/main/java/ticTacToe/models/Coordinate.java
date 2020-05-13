@@ -25,9 +25,9 @@ public class Coordinate {
 		this.setColumn(column);
 	}
 	
-	public Coordinate(Coordinate ticTacToeCoordinate) {
-		this(ticTacToeCoordinate.coordinate.getRow(),
-				ticTacToeCoordinate.coordinate.getColumn());
+	public Coordinate(Coordinate coordinate) {
+		this(coordinate.coordinate.getRow(),
+				coordinate.coordinate.getColumn());
 	}
 
 	private void setRow(int row){
@@ -54,10 +54,10 @@ public class Coordinate {
 		coordinate.setColumn(random.nextInt(Coordinate.DIMENSION));
 	}
 	
-	public Direction direction(Coordinate ticTacToeCoordinate){
-		Direction direction = coordinate.direction(ticTacToeCoordinate.coordinate);
+	public Direction direction(Coordinate coordinate){
+		Direction direction = this.coordinate.direction(coordinate.coordinate);
 		if (direction == Direction.NON_EXISTENT) {
-			if(this.inInverse() && ticTacToeCoordinate.inInverse())
+			if(this.inInverse() && coordinate.inInverse())
 				return Direction.INVERSE;
 		}
 		return direction;
