@@ -6,28 +6,6 @@ public class Coordinate {
 	
 	private int column;
 	
-	public static final int DIMENSION = 3;
-	
-	private static final ClosedInterval LIMITS = new ClosedInterval(0, Coordinate.DIMENSION-1);
-
-	public Coordinate(){	
-	}
-	
-	public Coordinate(int row, int column){	
-		assert LIMITS.includes(row);
-		assert LIMITS.includes(column);
-		this.row = row;
-		this.column = column;
-	}
-	
-	public void read(String title) {
-		assert title != null;
-		IO io = new IO();
-		io.writeln(title + " qué casilla?");
-		row = new LimitedIntDialog("Fila?", Coordinate.DIMENSION).read()-1;
-		column = new LimitedIntDialog("Columna?", Coordinate.DIMENSION).read()-1;
-	}
-	
 	public Direction direction(Coordinate coordinate){
 		assert coordinate != null;
 		if (this.inRow(coordinate)){
@@ -38,9 +16,6 @@ public class Coordinate {
 		}
 		if (this.inDiagonal() && coordinate.inDiagonal()){
 			return Direction.DIAGONAL;
-		}
-		if (this.inInverse() && coordinate.inInverse()){
-			return Direction.INVERSE;
 		}
 		return Direction.NON_EXISTENT;
 	}
@@ -53,14 +28,26 @@ public class Coordinate {
 		return column == coordinate.column;
 	}
 	
-	private boolean inDiagonal(){
+	public boolean inDiagonal(){
 		return row - column == 0;
-	}
+	}	
 	
-	private boolean inInverse(){
-		return row + column == Coordinate.DIMENSION-1;
+	public int getRow() {
+		return row;
 	}
 
+	public int getColumn() {
+		return column;
+	}
+	
+	public void setRow(int row){
+		this.row = row;
+	}
+	
+	public void setColumn(int column){
+		this.column = column;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -84,6 +71,5 @@ public class Coordinate {
 		if (row != other.row)
 			return false;
 		return true;
-	}	
-	
+	}
 }

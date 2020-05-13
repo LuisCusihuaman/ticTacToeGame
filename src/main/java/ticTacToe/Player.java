@@ -13,11 +13,10 @@ public class Player {
 		this.board = board;
 	}
 
-	private void put(String title, Coordinate forbidden) {
-		assert board != null;
+	private void put(String title, TicTacToeCoordinate forbidden) {
 		assert title != null;
 		IO io = new IO();
-		Coordinate target = new Coordinate();
+		TicTacToeCoordinate target = new TicTacToeCoordinate();
 		boolean ok;
 		do {
 			target.read(title);
@@ -44,7 +43,7 @@ public class Player {
 	public void move() {
 		IO io = new IO();
 		io.writeln("Mueve el jugador " + color);
-		Coordinate origin = new Coordinate();
+		TicTacToeCoordinate origin = new TicTacToeCoordinate();
 		boolean ok;
 		do {
 			origin.read("De");
