@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import ticTacToe.v230.utils.Direction;
-import ticTacToe.v230.utils.IO;
+import ticTacToe.utils.Direction;
+import ticTacToe.utils.IO;
 
 public class Board {
 
@@ -59,7 +59,7 @@ public class Board {
 			return false;
 		}
 		Coordinate[] coordinateArray = coordinateSet.toArray(new Coordinate[0]);
-		Direction direction = coordinateArray[0].direction(coordinateArray[1]);
+		Direction    direction       = coordinateArray[0].direction(coordinateArray[1]);
 		if (direction == Direction.NON_EXISTENT) {
 			return false;
 		}

@@ -1,13 +1,13 @@
 package ticTacToe;
 
-import ticTacToe.v230.utils.ClosedInterval;
-import ticTacToe.v230.utils.Direction;
-import ticTacToe.v230.utils.IO;
-import ticTacToe.v230.utils.LimitedIntDialog;
+import ticTacToe.utils.ClosedInterval;
+import ticTacToe.utils.Direction;
+import ticTacToe.utils.IO;
+import ticTacToe.utils.LimitedIntDialog;
 
 public class Coordinate {
 
-	private ticTacToe.v230.utils.Coordinate coordinate;
+	private ticTacToe.utils.Coordinate coordinate;
 
 	public static final int DIMENSION = 3;
 
@@ -15,7 +15,7 @@ public class Coordinate {
 			Coordinate.DIMENSION - 1);
 
 	public Coordinate() {
-		coordinate = new ticTacToe.v230.utils.Coordinate();
+		coordinate = new ticTacToe.utils.Coordinate();
 	}
 
 	public Coordinate(int row, int column) {

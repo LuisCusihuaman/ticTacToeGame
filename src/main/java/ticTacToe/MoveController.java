@@ -1,59 +1,53 @@
 package ticTacToe;
 
-import ticTacToe.v230.utils.IO;
+import ticTacToe.utils.IO;
 
-public class MoveController {
-
-	private Turn turn;
-
-	private Board board;
+public class MoveController extends ColocateController {
 
 	private Coordinate origin;
-
-	private Coordinate target;
-
+	
 	public MoveController(Turn turn, Board board) {
-		assert turn != null;
-		assert board != null;
-		this.turn = turn;
-		this.board = board;
-		origin = new Coordinate();
-		target = new Coordinate();
+		super(turn, board);
+	}
+	
+	@Override
+	public void control() {
+		this.put("Mueve", "A");
 	}
 
-	public void move() {
-		IO io = new IO();
-		io.writeln("Mueve el jugador " + turn.take());
+	@Override
+	protected void prePut() {
+		this.remove();
+	}
+	
+	private void remove(){
 		origin = new Coordinate();
 		boolean ok;
 		do {
 			origin.read("De");
-			ok = board.full(origin, turn.take());
-			if (!ok) {
-				new IO().writeln("Esa casilla no está ocupada por ninguna de tus fichas");
-			}
+			ok = this.errorToMove();
 		} while (!ok);
-		board.remove(origin, turn.take());
-		do {
-			target.read("A");
-			ok = board.empty(target);
-			if (!ok) {
-				new IO().writeln("Esa casilla no está vacía");
-			} else {
-				ok = !origin.equals(target);
-				if (!ok) {
-					new IO().writeln("No se puede poner de donde se quitó");
-				}
-			}
-		} while (!ok);
-		board.put(target, turn.take());
-		board.write();
-		if (board.existTicTacToe(turn.take())) {
-			io.writeln("Victoria!!!! " + turn.take() + "! " + turn.take()
-					+ "! " + turn.take() + "! Victoria!!!!");
-		} else {
-			turn.change();
+		this.getBoard().remove(origin, this.getTurn().take());
+	}
+	
+	private boolean errorToMove(){
+		boolean ok = this.getBoard().full(origin, this.getTurn().take());
+		if (!ok) {
+			new IO().writeln("Esa casilla no está ocupada por ninguna de tus fichas");
 		}
+		return ok;
+	}
+
+	@Override
+	protected boolean errorToPut() {
+		boolean ok = super.errorToPut();
+		if (ok){
+			ok = !origin.equals(this.getTarget());
+			if (!ok) {
+				new IO().writeln("No se puede poner de donde se quitó");
+			}
+		}
+		return ok;
 	}
 
 }

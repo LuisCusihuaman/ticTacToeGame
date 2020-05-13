@@ -1,6 +1,6 @@
 package ticTacToe;
 
-import ticTacToe.v230.utils.IO;
+import ticTacToe.utils.IO;
 
 public abstract class ColocateController {
 
