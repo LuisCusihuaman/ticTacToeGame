@@ -27,16 +27,16 @@ public class MoveController extends ColocateController {
 				new IO().writeln(""+error);
 			}
 		} while (error != null);	
-		this.getBoard().remove(origin, this.getTurn().take());
+		this.remove(origin);
 	}
-	
+
 	private Error validateOrigin() {
-		if (!this.getBoard().full(origin, this.getTurn().take())) {
+		if (!this.full(origin)) {
 			return Error.NOT_PROPERTY;
 		}
 		return null;
 	}
-	
+
 	@Override
 	protected Error validateTarget() {
 		Error error = super.validateTarget();

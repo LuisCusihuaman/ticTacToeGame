@@ -8,7 +8,7 @@ import java.util.Set;
 import ticTacToe.utils.Direction;
 import ticTacToe.utils.IO;
 
-public class Board {
+class Board {
 
 	private Map<Color, Set<Coordinate>> coordinates;
 

@@ -25,15 +25,15 @@ public abstract class ColocateController extends OperationController {
 	public void control() {
 		assert this.getState() == State.IN_GAME;
 		IO io = new IO();
-		io.writeln(actionTitle + " el jugador " + this.getTurn().take());
+		io.writeln(actionTitle + " el jugador " + this.take());
 		this.colocate();
-		this.getBoard().write();
-		if (this.getBoard().existTicTacToe(this.getTurn().take())) {
-			io.writeln("Victoria!!!! " + this.getTurn().take() + "! " + this.getTurn().take()
-					+ "! " + this.getTurn().take() + "! Victoria!!!!");
+		this.write();
+		if (this.existTicTacToe()) {
+			io.writeln("Victoria!!!! " + this.take() + "! " + this.take()
+					+ "! " + this.take() + "! Victoria!!!!");
 			this.setState(State.FINAL);
 		} else {
-			this.getTurn().change();
+			this.change();
 		}
 	}
 
@@ -48,16 +48,16 @@ public abstract class ColocateController extends OperationController {
 				new IO().writeln(""+error);
 			}
 		} while (error != null);	
-		this.getBoard().put(target, this.getTurn().take());
+		this.put(target);
 	}
-	
+
 	protected Error validateTarget(){
-		if (!this.getBoard().empty(target)) {
+		if (!this.empty(target)) {
 			return Error.NOT_EMPTY;
 		}
 		return null;
 	}
-	
+
 	protected CoordinateController getCoordinateController(){
 		return coordinateController;
 	}

@@ -1,9 +1,9 @@
 package ticTacToe.controllers;
 
-import ticTacToe.models.Board;
+import ticTacToe.models.Color;
+import ticTacToe.models.Coordinate;
 import ticTacToe.models.Game;
 import ticTacToe.models.State;
-import ticTacToe.models.Turn;
 
 public abstract class Controller {
 
@@ -23,15 +23,45 @@ public abstract class Controller {
 		game.setState(state);
 	}
 	
-	protected Board getBoard() {
-		return game.getBoard();
+	protected Color take() {
+		return game.take();
 	}
 	
-	protected Turn getTurn() {
-		return game.getTurn();
+	protected void change() {
+		game.change();
+	}
+	
+	protected void write() {
+		game.write();		
+	}
+	
+	protected void remove(Coordinate coordinate) {
+		game.remove(coordinate);
+	}
+	
+	protected void clear() {
+		game.clear();		
+	}	
+	
+	protected boolean full(Coordinate coodinate) {
+		return game.full(coodinate);
+	}
+	
+	protected boolean existTicTacToe() {
+		return game.existTicTacToe();
+	}
+	
+	protected void put(Coordinate coodinate) {
+		game.put(coodinate);
+	}
+	
+	protected boolean empty(Coordinate coodinate) {
+		return game.empty(coodinate);
 	}
 	
 	protected Game getGame(){
 		return game;
 	}
+	
+	
 }
