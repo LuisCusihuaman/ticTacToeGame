@@ -38,10 +38,6 @@ public class Game {
 	
 	public boolean empty(Coordinate target) {
 		return board.empty(target);
-	}
-	
-	public void write() {
-		board.write();
 	}	
 	
 	public int getNumPlayers() {
@@ -66,6 +62,10 @@ public class Game {
 	
 	public boolean existTicTacToe() {
 		return board.existTicTacToe(turn.take());
+	}
+
+	public Color getColor(Coordinate coordinate) {
+		return board.getColor(coordinate);
 	}
 	
 }

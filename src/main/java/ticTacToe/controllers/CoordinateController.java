@@ -11,7 +11,6 @@ public abstract class CoordinateController extends Controller {
 
 	public abstract Coordinate getOrigin();
 	
-	public abstract Coordinate getTarget(String targetTitle);
-
+	public abstract Coordinate getTarget();
 
 }

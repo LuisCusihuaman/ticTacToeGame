@@ -8,6 +8,4 @@ public abstract class OperationController extends Controller {
 		super(game);
 	}
 
-	public abstract void control();
-	
 }

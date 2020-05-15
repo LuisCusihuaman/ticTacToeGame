@@ -6,13 +6,12 @@ import java.util.Map;
 import java.util.Set;
 
 import ticTacToe.utils.Direction;
-import ticTacToe.utils.IO;
 
 class Board {
 
 	private Map<Color, Set<Coordinate>> coordinates;
 
-	public Board(int numPlayers) {
+	Board(int numPlayers) {
 		assert numPlayers > 0;
 		coordinates = new HashMap<>();
 		for (int i = 0; i < numPlayers; i++) {
@@ -20,17 +19,7 @@ class Board {
 		}
 	}
 
-	public void write() {
-		IO io = new IO();
-		for (int i = 0; i < Coordinate.DIMENSION; i++) {
-			for (int j = 0; j < Coordinate.DIMENSION; j++) {
-				io.write(this.getColor(new Coordinate(i, j)) + " ");
-			}
-			io.writeln();
-		}
-	}
-
-	private Color getColor(Coordinate coordinate) {
+	Color getColor(Coordinate coordinate) {
 		assert coordinate != null;
 		for (Color color : coordinates.keySet()) {
 			if (coordinates.get(color).contains(coordinate)) {
@@ -40,7 +29,7 @@ class Board {
 		return Color.NONE;
 	}
 
-	public boolean complete() {
+	boolean complete() {
 		int contTokens = 0;
 		for (Color color : coordinates.keySet()) {
 			contTokens += coordinates.get(color).size();
@@ -49,7 +38,7 @@ class Board {
 				* coordinates.keySet().size();
 	}
 
-	public boolean existTicTacToe(Color color) {
+	boolean existTicTacToe(Color color) {
 		assert color != Color.NONE;
 		Set<Coordinate> coordinateSet = coordinates.get(color);
 		if (coordinateSet.size() != Coordinate.DIMENSION) {
@@ -69,32 +58,32 @@ class Board {
 		return true;
 	}
 
-	public boolean empty(Coordinate coordinate) {
+	boolean empty(Coordinate coordinate) {
 		assert coordinate != null;
 		return !this.full(coordinate, Color.XS)
 				&& !this.full(coordinate, Color.OS);
 	}
 
-	public void put(Coordinate coordinate, Color color) {
+	void put(Coordinate coordinate, Color color) {
 		assert coordinate != null;
 		assert color != Color.NONE;
 		assert color != null;
 		coordinates.get(color).add(coordinate.clone());
 	}
 
-	public void remove(Coordinate coordinate, Color color) {
+	void remove(Coordinate coordinate, Color color) {
 		assert coordinate != null;
 		assert color != Color.NONE;
 		coordinates.get(color).remove(coordinate);
 	}
 
-	public boolean full(Coordinate coordinate, Color color) {
+	boolean full(Coordinate coordinate, Color color) {
 		assert coordinate != null;
 		assert color != Color.NONE;
 		return coordinates.get(color).contains(coordinate);
 	}
 
-	public void clear() {
+	void clear() {
 		for (Color color : coordinates.keySet()) {
 			coordinates.get(color).clear();
 		}		

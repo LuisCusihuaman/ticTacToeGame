@@ -14,6 +14,5 @@ class Turn {
     
     public void change() {
     	value = (value +1)% (Color.values().length-1);
-    }
-	
+    }	
 }

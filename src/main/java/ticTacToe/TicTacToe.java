@@ -2,13 +2,17 @@ package ticTacToe;
 
 import ticTacToe.controllers.Logic;
 import ticTacToe.controllers.OperationController;
+import ticTacToe.views.TicTacToeView;
 
 public class TicTacToe {
 
 	private Logic logic;
 	
+	private TicTacToeView view;
+	
 	public TicTacToe() {
 		logic = new Logic();
+		view = new TicTacToeView();
 	}
 	
 	public void play() {
@@ -16,9 +20,10 @@ public class TicTacToe {
 		do {
 			controller = logic.getController();
 			if (controller != null){
-				controller.control();
+				view.interact(controller);
 			}
 		} while (controller != null);
+		
 	}
 
 	public static void main(String[] args) {

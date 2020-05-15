@@ -4,8 +4,6 @@ import java.util.Random;
 
 import ticTacToe.utils.ClosedInterval;
 import ticTacToe.utils.Direction;
-import ticTacToe.utils.IO;
-import ticTacToe.utils.LimitedIntDialog;
 
 public class Coordinate {
 	
@@ -30,22 +28,14 @@ public class Coordinate {
 				coordinate.coordinate.getColumn());
 	}
 
-	private void setRow(int row){
+	public void setRow(int row){
 		assert LIMITS.includes(row);
 		coordinate.setRow(row);
 	}
 	
-	private void setColumn(int column){
+	public void setColumn(int column){
 		assert LIMITS.includes(column);
 		coordinate.setColumn(column);
-	}
-	
-	public void read(String title) {
-		assert title != null;
-		IO io = new IO();
-		io.writeln(title + " qué casilla?");
-		this.setRow(new LimitedIntDialog("Fila?", Coordinate.DIMENSION).read()-1);
-		this.setColumn(new LimitedIntDialog("Columna?", Coordinate.DIMENSION).read()-1);
 	}
 	
 	public void random() {
@@ -97,9 +87,12 @@ public class Coordinate {
 		return new Coordinate(this);
 	}
 	
-	@Override
-	public String toString(){
-		return "[" + (coordinate.getRow()+1) + ", " + (coordinate.getColumn()+1) + "]";
+	public int getRow() {
+		return coordinate.getRow();
+	}
+	
+	public int getColumn() {
+		return coordinate.getColumn();
 	}
 	
 }

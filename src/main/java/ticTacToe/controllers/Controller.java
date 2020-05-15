@@ -14,6 +14,10 @@ public abstract class Controller {
 		this.game = game;
 	}
 	
+	protected int numPlayers() {
+		return game.getNumPlayers();
+	}
+	
 	protected State getState(){
 		return game.getState();
 	}
@@ -23,45 +27,46 @@ public abstract class Controller {
 		game.setState(state);
 	}
 	
-	protected Color take() {
+	public Color take() {
 		return game.take();
 	}
 	
-	protected void change() {
-		game.change();
+	protected void put(Coordinate target) {
+		assert target != null;
+		game.put(target);
+		if (game.existTicTacToe()) {
+			game.setState(State.FINAL);
+		} else {
+			game.change();
+		}
 	}
 	
-	protected void write() {
-		game.write();		
-	}
-	
-	protected void remove(Coordinate coordinate) {
-		game.remove(coordinate);
+	protected void remove(Coordinate origin) {
+		assert origin != null;
+		game.remove(origin);
 	}
 	
 	protected void clear() {
 		game.clear();		
 	}	
 	
-	protected boolean full(Coordinate coodinate) {
-		return game.full(coodinate);
+	protected boolean empty(Coordinate coordinate) {
+		assert coordinate != null;
+		return game.empty(coordinate);
 	}
 	
-	protected boolean existTicTacToe() {
+	protected boolean full(Coordinate coordinate) {
+		assert coordinate != null;
+		return game.full(coordinate);
+	}
+	
+	public boolean existTicTacToe() {
 		return game.existTicTacToe();
-	}
+	}	
 	
-	protected void put(Coordinate coodinate) {
-		game.put(coodinate);
+	public Color getColor(Coordinate coordinate){
+		assert coordinate != null;
+		return game.getColor(coordinate);
 	}
-	
-	protected boolean empty(Coordinate coodinate) {
-		return game.empty(coodinate);
-	}
-	
-	protected Game getGame(){
-		return game;
-	}
-	
 	
 }

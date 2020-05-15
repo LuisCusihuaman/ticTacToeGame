@@ -2,23 +2,22 @@ package ticTacToe.controllers;
 
 import ticTacToe.models.Game;
 import ticTacToe.models.State;
-import ticTacToe.utils.LimitedIntDialog;
+import ticTacToe.utils.ClosedInterval;
 
 public class StartController extends OperationController {
 
 	private ColocateControllerBuilder colocateControllerBuilder;
 
-	protected StartController(Game game, ColocateControllerBuilder colocateControllerBuilder) {
+	StartController(Game game, ColocateControllerBuilder colocateControllerBuilder) {
 		super(game);
+		assert colocateControllerBuilder != null;
 		this.colocateControllerBuilder = colocateControllerBuilder;
 	}
-
-	@Override
-	public void control() {
+	
+	public void setUsers(int users){
+		assert new ClosedInterval(0, this.numPlayers()).includes(users);
 		assert this.getState() == State.INITIAL;
-		int users = new LimitedIntDialog("Cuántos usuarios?", 0, this.getGame().getNumPlayers()).read();
 		colocateControllerBuilder.build(users);
-		this.write();
 		this.setState(State.IN_GAME);
 	}
 

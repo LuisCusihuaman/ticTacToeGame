@@ -1,16 +1,21 @@
 package ticTacToe.controllers;
 
+import ticTacToe.models.Coordinate;
 import ticTacToe.models.Game;
 
 public class PutController extends ColocateController {
 
-	public PutController(Game game, CoordinateController coordinateController) {
-		super(game, "Pone", coordinateController);
+	PutController(Game game, CoordinateController coordinateController) {
+		super(game, coordinateController);
 	}
 
 	@Override
-	protected void colocate() {
-		this.put("En");
+	public void put(Coordinate target) {
+		assert this.validateTarget(target) == null;
+		super.put(target);
 	}
-
+	
+	public Error validateTarget(Coordinate target) {
+		return super.validateTarget(target);
+	}
 }

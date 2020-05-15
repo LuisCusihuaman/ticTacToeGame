@@ -11,16 +11,12 @@ public class UserCoordinateController extends CoordinateController {
 
 	@Override
 	public Coordinate getOrigin() {
-		Coordinate origin = new Coordinate();
-		origin.read("De");
-		return origin;
+		return new Coordinate();
 	}
 
 	@Override
-	public Coordinate getTarget(String targetTitle) {
-		Coordinate target = new Coordinate();
-		target.read(targetTitle);
-		return target;
+	public Coordinate getTarget() {
+		return new Coordinate();
 	}
 	
 }

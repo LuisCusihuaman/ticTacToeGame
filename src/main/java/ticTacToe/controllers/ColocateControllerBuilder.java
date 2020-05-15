@@ -1,19 +1,21 @@
 package ticTacToe.controllers;
 
+import ticTacToe.utils.ClosedInterval;
 import ticTacToe.models.Game;
 
-public class ColocateControllerBuilder {
+class ColocateControllerBuilder {
 
 	private ColocateController[][] colocateControllerArray;
 
 	private Game game;
 
-	public ColocateControllerBuilder(Game game) {
+	ColocateControllerBuilder(Game game) {
 		this.game = game;
 		colocateControllerArray = new ColocateController[game.getNumPlayers()][2];
 	}
 
-	public void build(int users) {
+	void build(int users) {
+		assert new ClosedInterval(0, game.getNumPlayers()).includes(users);
 		CoordinateController[][] coordinateController = new CoordinateController[2][2];
 		for (int i = 0; i < game.getNumPlayers(); i++) {
 			for (int j = 0; j < 2; j++) {
@@ -39,7 +41,7 @@ public class ColocateControllerBuilder {
 		}
 	}
 
-	public ColocateController getColocateController() {
+	ColocateController getColocateController() {
 		int player = game.take().ordinal();
 		if (!game.complete()) {
 			return colocateControllerArray[player][0];
