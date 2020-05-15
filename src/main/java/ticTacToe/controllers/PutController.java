@@ -2,7 +2,6 @@ package ticTacToe.controllers;
 
 import ticTacToe.models.Coordinate;
 import ticTacToe.models.Game;
-import ticTacToe.views.TicTacToeView;
 
 public class PutController extends ColocateController {
 
@@ -16,12 +15,12 @@ public class PutController extends ColocateController {
 		super.put(target);
 	}
 	
-	public Error validateTarget(Coordinate target) {
+	public java.lang.Error validateTarget(Coordinate target) {
 		return super.validateTarget(target);
 	}
 
 	@Override
-	public void accept(TicTacToeView ticTacToeView) {
-		ticTacToeView.visit(this);
+	public void accept(OperationControllerVisitor operationControllerVisitor) {
+		operationControllerVisitor.visit(this);
 	}
 }

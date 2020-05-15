@@ -87,11 +87,11 @@ public class Coordinate {
 		return new Coordinate(this);
 	}
 	
-	public int getRow(){
+	public int getRow() {
 		return coordinate.getRow();
 	}
 	
-	public int getColumn(){
+	public int getColumn() {
 		return coordinate.getColumn();
 	}
 	

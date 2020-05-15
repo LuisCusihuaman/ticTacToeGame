@@ -8,32 +8,35 @@ import ticTacToe.controllers.ContinueController;
 import ticTacToe.controllers.CoordinateController;
 import ticTacToe.controllers.MoveController;
 import ticTacToe.controllers.OperationController;
+import ticTacToe.controllers.OperationControllerVisitor;
 import ticTacToe.controllers.PutController;
 import ticTacToe.controllers.RandomCoordinateController;
 import ticTacToe.controllers.StartController;
 import ticTacToe.controllers.UserCoordinateController;
 import ticTacToe.utils.YesNoDialog;
 
-public class TicTacToeView {
+public class TicTacToeView implements OperationControllerVisitor {
 
 	private IO io = new IO();
 
-	public void interact(OperationController controller) {
-		assert controller != null;
-		controller.accept(this);
+	public void interact(OperationController operationController) {
+		assert operationController != null;
+		operationController.accept(this);
 	}
 	
+	@Override
 	public void visit(StartController startController) {
 		int users = new LimitedIntDialog("Cuántos usuarios?", 0, 2).read();
 		startController.setUsers(users);
 		new BoardView(startController).write();
 	}
 	
+	@Override
 	public void visit(PutController putController) {
 		ColorView colorView = new ColorView(putController.take());
 		colorView.writeln("Pone el jugador ");
-		Coordinate target;
-		Error      error = null;
+		Coordinate                  target;
+		ticTacToe.controllers.Error error = null;
 		do {
 			target = this.getTarget("En",
 					putController.getCoordinateController());
@@ -49,11 +52,12 @@ public class TicTacToeView {
 		}
 	}
 
+	@Override
 	public void visit(MoveController moveController) {
 		ColorView colorView = new ColorView(moveController.take());
 		colorView.writeln("Mueve el jugador ");
 		Coordinate origin;
-		Error error = null;
+		Error      error = null;
 		do {
 			origin = this.getOrigin(moveController.getCoordinateController());
 			error = moveController.validateOrigin(origin);
@@ -79,6 +83,7 @@ public class TicTacToeView {
 		}
 	}
 
+	@Override
 	public void visit(ContinueController continueController) {
 		continueController.setContinue(new YesNoDialog("Desea continuar")
 				.read());
