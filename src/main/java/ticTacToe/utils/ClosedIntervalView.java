@@ -1,6 +1,6 @@
 package ticTacToe.utils;
 
-public class ClosedIntervalView {
+class ClosedIntervalView {
 
 	private String title;
 	

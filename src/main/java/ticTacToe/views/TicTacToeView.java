@@ -20,28 +20,20 @@ public class TicTacToeView {
 
 	public void interact(OperationController controller) {
 		assert controller != null;
-		if (controller instanceof StartController) {
-			this.interact((StartController) controller);
-		} else if (controller instanceof PutController) {
-			this.interact((PutController) controller);
-		} else if (controller instanceof MoveController) {
-			this.interact((MoveController) controller);
-		} else if (controller instanceof ContinueController) {
-			this.interact((ContinueController) controller);
-		}
+		controller.accept(this);
 	}
-
-	private void interact(StartController startController) {
+	
+	public void visit(StartController startController) {
 		int users = new LimitedIntDialog("Cuántos usuarios?", 0, 2).read();
 		startController.setUsers(users);
 		new BoardView(startController).write();
 	}
-
-	private void interact(PutController putController) {
+	
+	public void visit(PutController putController) {
 		ColorView colorView = new ColorView(putController.take());
 		colorView.writeln("Pone el jugador ");
-		Coordinate                  target;
-		ticTacToe.controllers.Error error = null;
+		Coordinate target;
+		Error      error = null;
 		do {
 			target = this.getTarget("En",
 					putController.getCoordinateController());
@@ -57,6 +49,41 @@ public class TicTacToeView {
 		}
 	}
 
+	public void visit(MoveController moveController) {
+		ColorView colorView = new ColorView(moveController.take());
+		colorView.writeln("Mueve el jugador ");
+		Coordinate origin;
+		Error error = null;
+		do {
+			origin = this.getOrigin(moveController.getCoordinateController());
+			error = moveController.validateOrigin(origin);
+			if (error != null) {
+				io.writeln("" + error);
+			}
+		} while (error != null);
+		moveController.remove(origin);
+		Coordinate target;
+		error = null;
+		do {
+			target = this.getTarget("A",
+					moveController.getCoordinateController(), origin);
+			error = moveController.validateTarget(origin, target);
+			if (error != null) {
+				io.writeln("" + error);
+			}
+		} while (error != null);
+		moveController.put(target);
+		new BoardView(moveController).write();
+		if (moveController.existTicTacToe()) {
+			colorView.writeWinner();
+		}
+	}
+
+	public void visit(ContinueController continueController) {
+		continueController.setContinue(new YesNoDialog("Desea continuar")
+				.read());
+	}
+	
 	private Coordinate getTarget(String title,
 			CoordinateController coordinateController) {
 		if (coordinateController instanceof UserCoordinateController) {
@@ -83,37 +110,7 @@ public class TicTacToeView {
 		io.readString(". Pulse enter para continuar");
 		return coordinate;
 	}
-
-	private void interact(MoveController moveController) {
-		ColorView colorView = new ColorView(moveController.take());
-		colorView.writeln("Mueve el jugador ");
-		Coordinate origin;
-		Error      error = null;
-		do {
-			origin = this.getOrigin(moveController.getCoordinateController());
-			error = moveController.validateOrigin(origin);
-			if (error != null) {
-				io.writeln("" + error);
-			}
-		} while (error != null);
-		moveController.remove(origin);
-		Coordinate target;
-		error = null;
-		do {
-			target = this.getTarget("A",
-					moveController.getCoordinateController(), origin);
-			error = moveController.validateTarget(origin, target);
-			if (error != null) {
-				io.writeln("" + error);
-			}
-		} while (error != null);
-		moveController.put(target);
-		new BoardView(moveController).write();
-		if (moveController.existTicTacToe()) {
-			colorView.writeWinner();
-		}
-	}
-
+	
 	private Coordinate getOrigin(CoordinateController coordinateController) {
 		if (coordinateController instanceof UserCoordinateController) {
 			return this
@@ -156,11 +153,6 @@ public class TicTacToeView {
 		new CoordinateView("La máquina pone en ", coordinate).write();
 		io.readString(". Pulse enter para continuar");
 		return coordinate;
-	}
-
-	private void interact(ContinueController continueController) {
-		continueController.setContinue(new YesNoDialog("Desea continuar")
-				.read());
 	}
 
 }
