@@ -1,15 +1,15 @@
-package ticTacToe.controllers;
+package ticTacToe.controllers.local;
 
 import ticTacToe.models.Color;
 import ticTacToe.models.Coordinate;
-import ticTacToe.models.Game;
 import ticTacToe.models.State;
+import ticTacToe.models.Game;
 
-public abstract class Controller {
+public abstract class LocalController {
 
 	private Game game;
 
-	protected Controller(Game game) {
+	protected LocalController(Game game) {
 		assert game != null;
 		this.game = game;
 	}
@@ -22,7 +22,7 @@ public abstract class Controller {
 		return game.getState();
 	}
 	
-	protected void setState(State state){
+	public void setState(State state){
 		assert state != null;
 		game.setState(state);
 	}
@@ -31,7 +31,7 @@ public abstract class Controller {
 		return game.take();
 	}
 	
-	protected void put(Coordinate target) {
+	public void put(Coordinate target) {
 		assert target != null;
 		game.put(target);
 		if (game.existTicTacToe()) {
@@ -41,21 +41,21 @@ public abstract class Controller {
 		}
 	}
 	
-	protected void remove(Coordinate origin) {
+	public void remove(Coordinate origin) {
 		assert origin != null;
 		game.remove(origin);
 	}
 	
-	protected void clear() {
+	public void clear() {
 		game.clear();		
 	}	
 	
-	protected boolean empty(Coordinate coordinate) {
+	public boolean empty(Coordinate coordinate) {
 		assert coordinate != null;
 		return game.empty(coordinate);
 	}
 	
-	protected boolean full(Coordinate coordinate) {
+	public boolean full(Coordinate coordinate) {
 		assert coordinate != null;
 		return game.full(coordinate);
 	}

@@ -1,29 +1,29 @@
-package ticTacToe.controllers;
+package ticTacToe.controllers.local;
 
 import ticTacToe.utils.ClosedInterval;
 import ticTacToe.models.Game;
 
-class ColocateControllerBuilder {
+class LocalColocateControllerBuilder {
 
-	private ColocateController[][] colocateControllerArray;
+	private LocalColocateController[][] colocateControllerArray;
 
 	private Game game;
 
-	ColocateControllerBuilder(Game game) {
+	LocalColocateControllerBuilder(Game game) {
 		this.game = game;
-		colocateControllerArray = new ColocateController[game.getNumPlayers()][2];
+		colocateControllerArray = new LocalColocateController[game.getNumPlayers()][2];
 	}
 
 	void build(int users) {
 		assert new ClosedInterval(0, game.getNumPlayers()).includes(users);
-		CoordinateController[][] coordinateController = new CoordinateController[2][2];
+		LocalCoordinateController[][] coordinateController = new LocalCoordinateController[2][2];
 		for (int i = 0; i < game.getNumPlayers(); i++) {
 			for (int j = 0; j < 2; j++) {
 				if (i < users) {
-					coordinateController[i][j] = new UserCoordinateController(
+					coordinateController[i][j] = new LocalUserCoordinateController(
 							game);
 				} else {
-					coordinateController[i][j] = new RandomCoordinateController(
+					coordinateController[i][j] = new LocalRandomCoordinateController(
 							game);
 				}
 			}
@@ -31,17 +31,17 @@ class ColocateControllerBuilder {
 		for (int i = 0; i < game.getNumPlayers(); i++) {
 			for (int j = 0; j < 2; j++) {
 				if (j == 0) {
-					colocateControllerArray[i][j] = new PutController(game,
+					colocateControllerArray[i][j] = new LocalPutController(game,
 							coordinateController[i][j]);
 				} else {
-					colocateControllerArray[i][j] = new MoveController(game,
+					colocateControllerArray[i][j] = new LocalMoveController(game,
 							coordinateController[i][j]);
 				}
 			}
 		}
 	}
 
-	ColocateController getColocateController() {
+	LocalColocateController getColocateController() {
 		int player = game.take().ordinal();
 		if (!game.complete()) {
 			return colocateControllerArray[player][0];
