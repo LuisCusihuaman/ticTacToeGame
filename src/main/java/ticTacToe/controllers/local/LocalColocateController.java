@@ -17,7 +17,6 @@ abstract class LocalColocateController extends LocalOperationController {
 	}
 	
 	protected Error validateTarget(Coordinate target) {
-		assert target != null;
 		if (!this.empty(target)) {
 			return Error.NOT_EMPTY;
 		}

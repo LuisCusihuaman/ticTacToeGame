@@ -4,6 +4,7 @@ import ticTacToe.controllers.Error;
 import ticTacToe.controllers.MoveController;
 import ticTacToe.controllers.OperationControllerVisitor;
 import ticTacToe.models.Coordinate;
+import ticTacToe.controllers.ColocateControllerVisitor;
 import ticTacToe.models.Game;
 
 public class LocalMoveController extends LocalColocateController implements
@@ -54,6 +55,11 @@ public class LocalMoveController extends LocalColocateController implements
 	@Override
 	public void accept(OperationControllerVisitor operationControllerVisitor) {
 		operationControllerVisitor.visit(this);
+	}
+
+	@Override
+	public void accept(ColocateControllerVisitor colocateControllerVisitor) {
+		colocateControllerVisitor.visit(this);
 	}
 
 }

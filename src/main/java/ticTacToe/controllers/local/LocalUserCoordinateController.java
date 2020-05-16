@@ -4,7 +4,7 @@ import ticTacToe.controllers.UserCoordinateController;
 import ticTacToe.models.Coordinate;
 import ticTacToe.models.Game;
 
-public class LocalUserCoordinateController extends LocalCoordinateController 
+public class LocalUserCoordinateController extends LocalCoordinateController
 	implements UserCoordinateController {
 
 	protected LocalUserCoordinateController(Game game) {

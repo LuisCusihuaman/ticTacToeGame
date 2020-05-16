@@ -1,14 +1,14 @@
 package ticTacToe.views;
 
-import ticTacToe.controllers.OperationController;
+import ticTacToe.controllers.PresenterController;
 import ticTacToe.models.Coordinate;
 import ticTacToe.utils.IO;
 
 class BoardView {
 
-	private OperationController controller;
+	private PresenterController controller;
 
-	BoardView(OperationController controller) {
+	BoardView(PresenterController controller) {
 		assert controller != null;
 		this.controller = controller;
 	}

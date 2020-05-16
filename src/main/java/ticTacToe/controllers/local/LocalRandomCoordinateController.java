@@ -5,7 +5,7 @@ import ticTacToe.models.Coordinate;
 import ticTacToe.models.Game;
 
 public class LocalRandomCoordinateController extends LocalCoordinateController
-		implements RandomCoordinateController {
+	implements RandomCoordinateController {
 
 	protected LocalRandomCoordinateController(Game game) {
 		super(game);
@@ -19,7 +19,9 @@ public class LocalRandomCoordinateController extends LocalCoordinateController
 			origin.random();
 			ok = this.full(origin);
 		} while (!ok);
-		return origin;
+		Coordinate result = origin;
+		origin = null;
+		return result;
 	}
 
 	@Override
@@ -30,9 +32,11 @@ public class LocalRandomCoordinateController extends LocalCoordinateController
 			target.random();
 			ok = this.empty(target);
 		} while (!ok);
-		return target;
+		Coordinate result = target;
+		target = null;
+		return result;
 	}
-
+	
 	public Coordinate getTarget(Coordinate origin) {
 		assert origin != null;
 		boolean ok;
@@ -40,7 +44,7 @@ public class LocalRandomCoordinateController extends LocalCoordinateController
 		do {
 			target = this.getTarget();
 			ok = !origin.equals(target);
-		} while (!ok);
+		} while(!ok);
 		return target;
 	}
 

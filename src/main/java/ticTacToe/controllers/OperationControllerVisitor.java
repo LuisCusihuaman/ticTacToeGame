@@ -4,9 +4,7 @@ public interface OperationControllerVisitor {
 
 	void visit(StartController startController);
 	
-	void visit(PutController putController);
-	
-	void visit(MoveController moveController);
+	void visit(ColocateController colocateController);
 	
 	void visit(ContinueController continueController);
 
