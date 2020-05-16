@@ -13,6 +13,8 @@ public interface ColocateController extends OperationController,
 	boolean existTicTacToe();
 
 	CoordinateController getCoordinateController();
+	
+	Error validateTarget(Coordinate target);
 
 	void accept(ColocateControllerVisitor colocateControllerVisitor);
 

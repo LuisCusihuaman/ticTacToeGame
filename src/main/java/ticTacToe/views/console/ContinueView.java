@@ -1,4 +1,4 @@
-package ticTacToe.views;
+package ticTacToe.views.console;
 
 import ticTacToe.controllers.ContinueController;
 import ticTacToe.utils.YesNoDialog;

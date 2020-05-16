@@ -1,4 +1,4 @@
-package ticTacToe.views;
+package ticTacToe.views.console;
 
 import ticTacToe.models.Coordinate;
 import ticTacToe.utils.IO;
@@ -21,7 +21,7 @@ class CoordinateView {
 	}
 
 	void read() {
-		io.writeln(title + " qué casilla?");
+		new IO().writeln(title + " qué casilla?");
 		coordinate.setRow(new LimitedIntDialog("Fila?", Coordinate.DIMENSION)
 				.read() - 1);
 		coordinate.setColumn(new LimitedIntDialog("Columna?",

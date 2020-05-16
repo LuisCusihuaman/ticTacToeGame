@@ -1,7 +1,7 @@
 package ticTacToe.controllers.local;
 
-import ticTacToe.utils.ClosedInterval;
 import ticTacToe.models.Game;
+import ticTacToe.utils.ClosedInterval;
 
 class LocalColocateControllerBuilder {
 

@@ -2,8 +2,8 @@ package ticTacToe.controllers.local;
 
 import ticTacToe.controllers.ContinueController;
 import ticTacToe.controllers.OperationControllerVisitor;
-import ticTacToe.models.State;
 import ticTacToe.models.Game;
+import ticTacToe.models.State;
 
 public class LocalContinueController extends LocalOperationController implements
 		ContinueController {

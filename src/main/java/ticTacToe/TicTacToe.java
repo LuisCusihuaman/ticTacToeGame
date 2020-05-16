@@ -1,32 +1,31 @@
 package ticTacToe;
 
-import ticTacToe.controllers.local.LocalOperationController;
-import ticTacToe.controllers.local.Logic;
-import ticTacToe.views.TicTacToeView;
+import ticTacToe.controllers.local.LocalLogic;
+import ticTacToe.controllers.OperationController;
+import ticTacToe.views.console.ConsoleView;
 
 public class TicTacToe {
 
 	private Logic logic;
 	
-	private TicTacToeView view;
+	private View view;
 	
-	public TicTacToe() {
-		logic = new Logic();
-		view = new TicTacToeView();
+	public TicTacToe(View view, Logic logic) {
+		this.view = view;
+		this.logic = logic;
 	}
 	
 	public void play() {
-		LocalOperationController controller;
+		OperationController controller;
 		do {
-			controller = logic.getController();
+			controller = logic.getOperationController();
 			if (controller != null){
 				view.interact(controller);
 			}
-		} while (controller != null);
-		
+		} while (controller != null);	
 	}
-
+	
 	public static void main(String[] args) {
-		new TicTacToe().play();
+		new TicTacToe(new ConsoleView(), new LocalLogic()).play();
 	}
 }

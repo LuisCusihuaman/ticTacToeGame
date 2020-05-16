@@ -4,8 +4,8 @@ import ticTacToe.controllers.Error;
 import ticTacToe.controllers.OperationControllerVisitor;
 import ticTacToe.controllers.PutController;
 import ticTacToe.models.Coordinate;
-import ticTacToe.controllers.ColocateControllerVisitor;
 import ticTacToe.models.Game;
+import ticTacToe.controllers.ColocateControllerVisitor;
 
 public class LocalPutController extends LocalColocateController implements
 		PutController {

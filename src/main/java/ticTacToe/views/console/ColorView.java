@@ -1,4 +1,4 @@
-package ticTacToe.views;
+package ticTacToe.views.console;
 
 import ticTacToe.models.Color;
 import ticTacToe.utils.IO;

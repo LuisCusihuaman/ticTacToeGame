@@ -2,9 +2,9 @@ package ticTacToe.controllers.local;
 
 import ticTacToe.controllers.OperationControllerVisitor;
 import ticTacToe.controllers.StartController;
+import ticTacToe.models.Game;
 import ticTacToe.models.State;
 import ticTacToe.utils.ClosedInterval;
-import ticTacToe.models.Game;
 
 public class LocalStartController extends LocalOperationController implements
 		StartController {
@@ -12,7 +12,7 @@ public class LocalStartController extends LocalOperationController implements
 	private LocalColocateControllerBuilder colocateControllerBuilder;
 
 	LocalStartController(Game game,
-			LocalColocateControllerBuilder colocateControllerBuilder) {
+	                     LocalColocateControllerBuilder colocateControllerBuilder) {
 		super(game);
 		assert colocateControllerBuilder != null;
 		this.colocateControllerBuilder = colocateControllerBuilder;

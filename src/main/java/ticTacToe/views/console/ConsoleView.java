@@ -1,12 +1,12 @@
-package ticTacToe.views;
+package ticTacToe.views.console;
 
+import ticTacToe.View;
 import ticTacToe.controllers.ColocateController;
 import ticTacToe.controllers.ContinueController;
 import ticTacToe.controllers.OperationController;
-import ticTacToe.controllers.OperationControllerVisitor;
 import ticTacToe.controllers.StartController;
 
-public class TicTacToeView implements OperationControllerVisitor {
+public class ConsoleView implements View {
 	
 	private StartView startView;
 	
@@ -14,7 +14,7 @@ public class TicTacToeView implements OperationControllerVisitor {
 	
 	private ContinueView continueView;
 	
-	public TicTacToeView(){
+	public ConsoleView(){
 		startView = new StartView();
 		gameView = new GameView();
 		continueView = new ContinueView();

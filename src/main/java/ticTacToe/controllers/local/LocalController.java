@@ -2,8 +2,8 @@ package ticTacToe.controllers.local;
 
 import ticTacToe.models.Color;
 import ticTacToe.models.Coordinate;
-import ticTacToe.models.State;
 import ticTacToe.models.Game;
+import ticTacToe.models.State;
 
 public abstract class LocalController {
 
