@@ -8,4 +8,6 @@ public interface CoordinateController {
 
 	Coordinate getTarget();
 
+	void accept(CoordinateControllerVisitor coordinateControllerVisitor);
+
 }

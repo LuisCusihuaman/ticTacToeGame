@@ -1,5 +1,6 @@
 package ticTacToe.controllers.local;
 
+import ticTacToe.controllers.CoordinateControllerVisitor;
 import ticTacToe.controllers.UserCoordinateController;
 import ticTacToe.models.Coordinate;
 import ticTacToe.models.Game;
@@ -19,6 +20,11 @@ public class LocalUserCoordinateController extends LocalCoordinateController
 	@Override
 	public Coordinate getTarget() {
 		return new Coordinate();
+	}
+
+	@Override
+	public void accept(CoordinateControllerVisitor coordinateControllerVisitor) {
+		coordinateControllerVisitor.visit(this);
 	}
 	
 }

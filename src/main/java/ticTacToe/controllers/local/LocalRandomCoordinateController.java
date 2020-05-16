@@ -1,5 +1,6 @@
 package ticTacToe.controllers.local;
 
+import ticTacToe.controllers.CoordinateControllerVisitor;
 import ticTacToe.controllers.RandomCoordinateController;
 import ticTacToe.models.Coordinate;
 import ticTacToe.models.Game;
@@ -46,6 +47,11 @@ public class LocalRandomCoordinateController extends LocalCoordinateController
 			ok = !origin.equals(target);
 		} while(!ok);
 		return target;
+	}
+
+	@Override
+	public void accept(CoordinateControllerVisitor coordinateControllerVisitor) {
+		coordinateControllerVisitor.visit(this);
 	}
 
 }

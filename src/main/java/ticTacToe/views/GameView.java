@@ -6,23 +6,29 @@ import ticTacToe.utils.IO;
 import ticTacToe.controllers.ColocateController;
 import ticTacToe.controllers.ColocateControllerVisitor;
 import ticTacToe.controllers.CoordinateController;
+import ticTacToe.controllers.CoordinateControllerVisitor;
 import ticTacToe.controllers.MoveController;
 import ticTacToe.controllers.PutController;
 import ticTacToe.controllers.RandomCoordinateController;
 import ticTacToe.controllers.UserCoordinateController;
 
-class GameView implements ColocateControllerVisitor {
+class GameView implements ColocateControllerVisitor,
+		CoordinateControllerVisitor {
 
 	private IO io = new IO();
+
+	private String title;
+
+	private Coordinate target;
 
 	public void interact(ColocateController colocateController) {
 		colocateController.accept(this);
 	}
-	
+
 	@Override
 	public void visit(PutController putController) {
 		ColorView colorView = new ColorView(putController.take());
-		colorView.writeln("Mueve el jugador ");
+		colorView.writeln("Pone el jugador ");
 		Coordinate target;
 		Error      error = null;
 		do {
@@ -73,28 +79,29 @@ class GameView implements ColocateControllerVisitor {
 
 	private Coordinate getTarget(String title,
 			CoordinateController coordinateController) {
-		if (coordinateController instanceof UserCoordinateController) {
-			return this.getTarget(title,
-					(UserCoordinateController) coordinateController);
-		} else if (coordinateController instanceof RandomCoordinateController) {
-			return this.getTarget(title,
-					(RandomCoordinateController) coordinateController);
-		}
-		return null;
+		assert title != null;
+		assert coordinateController != null;
+		this.title = title;
+		target = coordinateController.getTarget();
+		coordinateController.accept(this);
+		return target;
+	}
+
+	@Override
+	public void visit(UserCoordinateController userCoordinateController) {
+		new CoordinateView(title, target).read();
+	}
+
+	@Override
+	public void visit(RandomCoordinateController randomCoordinateController) {
+		new CoordinateView("La máquina pone en ", target).write();
+		io.readString(". Pulse enter para continuar");
 	}
 
 	private Coordinate getTarget(String title,
 			UserCoordinateController coordinateController) {
 		Coordinate coordinate = coordinateController.getTarget();
 		new CoordinateView(title, coordinate).read();
-		return coordinate;
-	}
-
-	private Coordinate getTarget(String title,
-			RandomCoordinateController coordinateController) {
-		Coordinate coordinate = coordinateController.getTarget();
-		new CoordinateView("La máquina pone en ", coordinate).write();
-		io.readString(". Pulse enter para continuar");
 		return coordinate;
 	}
 
